@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:statemanegmentapp/page1.dart';
-import 'package:statemanegmentapp/page2.dart';
+import 'package:statemanegmentapp/inheritedWidget/page1.dart';
+import 'package:statemanegmentapp/inheritedWidget/page2.dart';
+import 'package:statemanegmentapp/inheritedWidget/context_provider.dart';
 
 void main() {
   runApp(
@@ -14,107 +15,40 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cart Demo',
-      home: MyHomePage(),
+      home: MyHomePage(
+        title: "stateManApp",
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key});
-
+  MyHomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int counter = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('سلة المشتريات'),
-        ),
-        body: Container(
+      appBar: AppBar(
+        title: Text('Title'),
+      ),
+      body: MyCounterUpdate(
+        title: 'hello',
+        child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                child: Text(
-                  counter.toString(),
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-              Center(
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        var value = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Page1(
-                                counter: counter,
-                                callback: (value) {
-                                  setState(() {
-                                    counter = value;
-                                  });
-                                },
-                              ), // Changed from page1 to Page1
-                            ));
-                        if (value != null) {
-                          setState(() {
-                            counter = value;
-                          });
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.blue,
-                        ),
-                        child: Text(
-                          'الصفحة 1',
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                        onTap: () async {
-                          var value = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => page2(
-                                  counter: counter,
-                                  callback: (value) {
-                                    setState(() {
-                                      counter = value;
-                                    });
-                                  },
-                                ),
-                              ));
-                          if (value != null) {
-                            setState(() {
-                              counter = value;
-                            });
-                          }
-                        },
-                        child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.blue,
-                            ),
-                            child: Text(
-                              'الصفحة 2',
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            )))
-                  ],
-                ),
-              ),
+              Text('Counter value:'),
+              MyTextWidget(),
+              MyButton(),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

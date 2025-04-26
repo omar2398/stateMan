@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:statemanegmentapp/inheritedWidget/inherited_widget.dart';
 
 class MyCounterUpdate extends StatefulWidget {
-  const MyCounterUpdate({super.key, required this.title});
+  final Widget child;
+  const MyCounterUpdate({super.key, required this.title, required this.child});
   final String title;
 
   static MyCounterUpdateState of(BuildContext context) {
-    final MyCounterUpdateState? result =
+    final result =
         context.dependOnInheritedWidgetOfExactType<MyInheritedWidget>()?.data;
-    assert(result != null, 'No MyInheritedWidget found in context');
     return result!;
   }
 
@@ -17,8 +17,17 @@ class MyCounterUpdate extends StatefulWidget {
 }
 
 class MyCounterUpdateState extends State<MyCounterUpdate> {
+  int _counter = 0;
+  void incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  int get counterValue => _counter;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MyInheritedWidget(data: this, child: widget.child);
   }
 }

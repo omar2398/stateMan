@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:statemanegmentapp/inheritedModel/context_provider.dart';
+import 'package:statemanegmentapp/inheritedModel/page1.dart';
+import 'package:statemanegmentapp/inheritedModel/page2.dart';
 import 'package:statemanegmentapp/inheritedWidget/page1.dart';
 import 'package:statemanegmentapp/inheritedWidget/page2.dart';
 import 'package:statemanegmentapp/inheritedWidget/context_provider.dart';
@@ -36,15 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Title'),
       ),
-      body: MyCounterUpdate(
-        title: 'hello',
+      body: MyCounterUpdateInheritedModel(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Counter value:'),
-              MyTextWidget(),
-              MyButton(),
+              MyTextWidgetForInheritedModel(),
+              MyButtonForInheritedModel(),
             ],
           ),
         ),
